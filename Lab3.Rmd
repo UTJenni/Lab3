@@ -21,7 +21,7 @@ library(see)
 # Load Datasets
 ```{r}
 
-lab3data <- read.csv("C:/Users/Colin/Documents/Github/Website/Lab3/lab3data.csv")
+lab3data <- read.csv("/Users/northlight/Documents/GitHub/Lab3/lab3data.csv")
 
 ```
 
@@ -44,6 +44,12 @@ lab3data %>% count(Gender)
 #Solution 1
 lab3data<- lab3data%>%
   mutate_at(c('Gender'),funs(str_replace(., "1", "Male")))
+
+lab3data<- lab3data%>%
+  mutate_at(c('Gender'),funs(str_replace(., "2", "Female")))
+
+lab3data %>% count(Gender)
+
 
 #Solution 2
 
@@ -69,6 +75,21 @@ lab3data %>% count(RSE2_R)
 
 #Now do the same for the other items (5,6,8,9)
 
+lab3data %>% count(RSE5)
+
+lab3data$RSE5_R <- 5 - lab3data$RSE5
+
+lab3data %>% count(RSE6)
+
+lab3data$RSE6_R <- 5 - lab3data$RSE6
+
+lab3data %>% count(RSE8)
+
+lab3data$RSE8_R <- 5 - lab3data$RSE8
+
+lab3data %>% count(RSE9)
+
+lab3data$RSE9_R <- 5 - lab3data$RSE9
 
 ```
 
@@ -80,10 +101,15 @@ lab3data %>% count(RSE2_R)
 
 
 #Fill in the items
-#lab3data <- lab3data %>%
-  #mutate(RSE = rowMeans(cbind(RSE1, ..., RSE10)))
+lab3data <- lab3data %>%
+  mutate(RSE = rowMeans(cbind(RSE1, RSE2_R, RSE3, RSE4, RSE5_R, RSE6_R, RSE7, RSE8_R, RSE9_R, RSE10)))
+
 
 #Create another composite for SWL, but this time use rowSums
+
+lab3data <- lab3data %>%
+  mutate(SWL = rowSums(cbind(SWL1, SWL2, SWL3, SWL4, SWL5)))
+
 
 ```
 
@@ -91,14 +117,24 @@ lab3data %>% count(RSE2_R)
 # Get Summary Descriptive Statistics
 ```{r}
 
+lab3data %>% 
+  group_by(Gender) %>%
+  dplyr::summarize(mean_RSE = mean(RSE), 
+      mean_SWL = mean(SWL),
+      std_dev_RSE = sd(RSE),
+      std_dev_SWL = sd(SWL),
+      corr_RSE_SWL  = cor(RSE, SWL))
+
+
 
 
 ```
 
 # Q1: Descrptively, which group has a higher self-esteem? What about life satisfaction? Is the relationship between self-esteem and life satisfaction stronger for males or for females? 
 
-
-
+Males appear to have higher self-esteem. 
+Females appear to have higher life satisfaction. 
+The relationship between self esteem and life satisfaction appears to be stronger for Males. 
 
 # Visualization of Data Distribution
 ```{r}
@@ -107,10 +143,24 @@ lab3data<- lab3data %>%
   drop_na(Gender)
 
 
-ggplot(lab3data, aes(x = Gender, y = RSE1)) + geom_violin(aes(fill=Gender)) + scale_fill_simpsons() + theme_modern()
+ggplot(lab3data, aes(x = Gender, y = RSE)) + geom_violin(aes(fill=Gender)) + scale_fill_simpsons() + theme_modern()
 
 #Create a plot for SWL by Gender with a different color palette
+
+ggplot(lab3data, aes(x = Gender, y = SWL)) + geom_violin(aes(fill=Gender)) + scale_fill_tron() + theme_modern()
+
+?scale_fill_brewer
 
 ```
 
 # Q2: What you can tell from looking at a violin plot? What you cannot tell? What inferences you can make based on the two violin plots? 
+
+A violin plot itself can show us: 
+- Distribution of scores; ie most responses in SWE fall at 4/5 
+
+A violin plot itself cannot show us: 
+- Mean
+- Standard Deviation
+- Standard Error 
+
+We can infer from a violin plot: 
