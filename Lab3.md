@@ -307,10 +307,28 @@ ggplot(lab3data, aes(x = Gender, y = SWL)) + geom_violin(aes(fill=Gender)) + sca
 
 # Q2: What you can tell from looking at a violin plot? What you cannot tell? What inferences you can make based on the two violin plots?
 
-A violin plot itself can show us: - Distribution of scores; ie most
-responses in SWE fall at 4/5
+A violin plot itself can show us: - Distribution of scores; - Mode (ie
+in this case, most responders, both male and female in SWE fall at 4/5
+for life satisfaction) - Total possible Range of scores (ie 0-25 here)
 
-A violin plot itself cannot show us: - Mean - Standard Deviation -
-Standard Error
+A violin plot itself cannot show us: - Mean - Median - Standard
+Deviation - Standard Error - Total number of scores from each subject -
+Total number of surveyed subjects - correlation (separate plots)
 
-We can infer from a violin plot:
+We can infer from this violin plot: We see that Male and Female
+distribution appears to be quite visually similar in terms of life
+satisfaction, however, there are a couple subtle visual cues; more
+female than male subjects fall at 10/25 and 15/25for total life
+satisfaction score, whereas more males appear to land at 20/25. Also, it
+appears that slightly more male respondents fall at the 5/25 total score
+than females. Could it be that Males are more likely to fall in the
+extremes of satisfaction, whereas Females are more likely to be middle
+of the road?
+
+In terms of self esteem, again they do appear to have visually similar
+distributions, with some slight differences; visual cues for difference
+show a more triangular distribution for Males, whereas Females show a
+more spherical distribution. There appear to be two modes for Male
+subjects at 3 and at 4 (or slightly below 4) whereas the smoother
+distribution for Female subjects does not indicate two modes; it appears
+that the Female mode lands around 3, but no strong peaks or valleys.
